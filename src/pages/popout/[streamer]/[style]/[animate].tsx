@@ -2,10 +2,11 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { Client } from "tmi.js";
-import { MessageItem } from "../../../components/message-item";
-import { useChannelBadgesStore } from "../../../store/channel-badges";
-import { useGlobalBadgesStore } from "../../../store/global-badges";
-import { useMessagesStore } from "../../../store/messages";
+import { MessageItem } from "../../../../components/message-item";
+import { useChannelBadgesStore } from "../../../../store/channel-badges";
+import { useGlobalBadgesStore } from "../../../../store/global-badges";
+import { useMessagesStore } from "../../../../store/messages";
+import { Styles } from "../../../../store/settings";
 
 const Popout = () => {
   const { messages, add: addMessage } = useMessagesStore((state) => state);
@@ -18,6 +19,7 @@ const Popout = () => {
   const router = useRouter();
   const streamer = router.query.streamer as string;
   const animate = router.query.animate as string;
+  const style = router.query.style as Styles;
 
   useEffect(() => {
     if (!streamer) return;
@@ -29,7 +31,6 @@ const Popout = () => {
       channels: [streamer],
     });
 
-    client.disconnect();
     client.connect();
 
     client.on("message", (_, user, message) => addMessage({ user, message }));
@@ -56,6 +57,7 @@ const Popout = () => {
             channelBadges={channelBadges}
             message={message}
             animate={animate === "1"}
+            style={style}
             key={message.user.id + message.message}
           />
         ))}

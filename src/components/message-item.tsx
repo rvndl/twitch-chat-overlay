@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Message } from "../store/messages";
 import { motion } from "framer-motion";
-import { useSettingsStore } from "../store/settings";
+import { Styles, useSettingsStore } from "../store/settings";
 import { Donk } from "./donk";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
   globalBadges: any;
   channelBadges: any;
   animate?: boolean;
+  style?: Styles;
 }
 
 export const MessageItem = ({
@@ -16,9 +17,8 @@ export const MessageItem = ({
   globalBadges,
   channelBadges,
   animate = true,
+  style = "default",
 }: Props) => {
-  const style = useSettingsStore(({ style }) => style);
-
   const badgesWithUrl = useMemo(() => {
     return Object.entries(message.user.badges || {}).map(([key, value]) => {
       if (key === "subscriber") {

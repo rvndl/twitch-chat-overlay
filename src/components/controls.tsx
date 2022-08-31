@@ -16,7 +16,7 @@ export const Controls = () => {
   );
   const fetchGlobalBadges = useGlobalBadgesStore(({ fetch }) => fetch);
   const fetchChannelBadges = useChannelBadgesStore(({ fetch }) => fetch);
-  const { animate, toggleAnimate, setStyle } = useSettingsStore(
+  const { animate, toggleAnimate, setStyle, style } = useSettingsStore(
     (state) => state
   );
 
@@ -58,7 +58,9 @@ export const Controls = () => {
     }
 
     navigator.clipboard.writeText(
-      `${window.location.href}popout/${channelName}/${animate ? "1" : "0"}`
+      `${window.location.href}popout/${channelName}/${style}/${
+        animate ? "1" : "0"
+      }`
     );
 
     toast.success(
