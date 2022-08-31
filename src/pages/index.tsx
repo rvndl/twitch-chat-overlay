@@ -7,7 +7,7 @@ const Home = () => {
       <div className="flex flex-col">
         <Controls />
         <div className="mt-auto bg-gray-800 rounded-md p-2 border border-gray-700 text-sm font-medium text-gray-300">
-          by Jozefbrzeczyszczykiewicz
+          by JozefBrzeczyszczykiewicz
         </div>
       </div>
       <div className="h-full mt-auto w-full">
