@@ -15,9 +15,9 @@ export const MessageList = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.lastElementChild?.scrollIntoView({
-        behavior: "smooth",
-      });
+      // containerRef.current.lastElementChild?.scrollIntoView({
+      //   behavior: "smooth",
+      // });
     }
   }, [messages]);
 
@@ -27,7 +27,7 @@ export const MessageList = () => {
       <AnimatePresence>
         <div
           ref={containerRef}
-          className="overflow-y-auto overflow-x-hidden h-[95%] mt-auto p-2"
+          className="overflow-y-auto overflow-x-hidden h-[95%] mt-auto p-2 justify-end flex flex-col"
         >
           {messages.map((message) => (
             <MessageItem
