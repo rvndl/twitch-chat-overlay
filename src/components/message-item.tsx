@@ -52,7 +52,7 @@ export const MessageItem = ({
             />
           ))}
         </div>
-        <p className="flex shrink-0 " style={{ color: user.color || "white" }}>
+        <p className="flex shrink-0 " style={{ color: user.color || "gray" }}>
           {user["display-name"]}:
         </p>
         <p className="flex ml-1 flex-wrap">{message}</p>
