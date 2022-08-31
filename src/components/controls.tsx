@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Client } from "tmi.js";
 import { useChannelBadgesStore } from "../store/channel-badges";
+import { useEmotesStore } from "../store/emotes";
 import { useGlobalBadgesStore } from "../store/global-badges";
 import { useMessagesStore } from "../store/messages";
 import { Styles, useSettingsStore } from "../store/settings";
@@ -16,6 +17,7 @@ export const Controls = () => {
   );
   const fetchGlobalBadges = useGlobalBadgesStore(({ fetch }) => fetch);
   const fetchChannelBadges = useChannelBadgesStore(({ fetch }) => fetch);
+  const fetchEmotes = useEmotesStore(({ fetch }) => fetch);
   const { animate, toggleAnimate, setStyle, style } = useSettingsStore(
     (state) => state
   );
@@ -27,6 +29,7 @@ export const Controls = () => {
   useEffect(() => {
     clearMessages();
     fetchChannelBadges(activeChannelName);
+    fetchEmotes(activeChannelName);
 
     const client = new Client({
       channels: [activeChannelName],

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Styles, useSettingsStore } from "../store/settings";
 import { Donk } from "./donk";
 import Nymn from "../assets/nymn.png";
+import { useEmotesStore } from "../store/emotes";
+import sanitize from "sanitize-html";
 
 interface Props {
   message: Message;
@@ -64,7 +66,7 @@ const DefaultStyle = ({
   badgesWithUrl: any[];
 }) => {
   return (
-    <div className="flex drop-shadow-md">
+    <div className="flex drop-shadow-md mb-1">
       <div className="flex items-start shrink-0">
         {badgesWithUrl.map((badge) => (
           <img src={badge.url} key={badge.url} className="mr-1 shrink-0 mt-1" />
@@ -73,20 +75,24 @@ const DefaultStyle = ({
       <p className="flex shrink-0" style={{ color: user.color || "gray" }}>
         {user["display-name"]}:
       </p>
-      <p className="flex ml-1 flex-wrap">{message}</p>
+      <p className="flex ml-1 flex-wrap">
+        <MessageWithEmotes message={message} />
+      </p>
     </div>
   );
 };
 
 const DonkStyle = ({ message: { user, message } }: { message: Message }) => (
   <div className="flex drop-shadow-md mb-2">
-    <div style={{ color: user.color || "gray" }}>
+    <div className="shrink-0" style={{ color: user.color || "gray" }}>
       <Donk />
     </div>
     <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
       {user["display-name"]}:
     </p>
-    <p className="flex ml-1 flex-wrap">{message}</p>
+    <p className="flex ml-1 flex-wrap">
+      <MessageWithEmotes message={message} />
+    </p>
   </div>
 );
 
@@ -101,6 +107,39 @@ const NymNStyle = ({ message: { user, message } }: { message: Message }) => (
     <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
       {user["display-name"]}:
     </p>
-    <p className="flex ml-1 flex-wrap">{message}</p>
+    <p className="flex ml-1 flex-wrap">
+      <MessageWithEmotes message={message} />
+    </p>
   </div>
 );
+
+const MessageWithEmotes = ({ message }: { message: string }) => {
+  const emotes = useEmotesStore(({ emotes }) => emotes);
+
+  const newMessage = useMemo(() => {
+    const replacements: any[] = [];
+    const sanitized = sanitize(message, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    sanitized.split(" ").forEach((word) => {
+      const found = emotes.find((emote) => emote.name === word);
+      if (found) {
+        replacements.push(
+          ` <img src="${found.url}"  height="24" style="margin-left: 2px; margin-right: 2px;" /> `
+        );
+      } else {
+        replacements.push(word);
+      }
+    });
+
+    return replacements.join(" ");
+  }, [message]);
+
+  return (
+    <span
+      dangerouslySetInnerHTML={{ __html: newMessage }}
+      className="flex flex-wrap"
+    ></span>
+  );
+};

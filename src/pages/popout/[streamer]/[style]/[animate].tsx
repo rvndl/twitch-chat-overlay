@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Client } from "tmi.js";
 import { MessageItem } from "../../../../components/message-item";
 import { useChannelBadgesStore } from "../../../../store/channel-badges";
+import { useEmotesStore } from "../../../../store/emotes";
 import { useGlobalBadgesStore } from "../../../../store/global-badges";
 import { useMessagesStore } from "../../../../store/messages";
 import { Styles } from "../../../../store/settings";
@@ -14,6 +15,7 @@ const Popout = () => {
     useGlobalBadgesStore((state) => state);
   const { badges: channelBadges, fetch: fetchChannelBadges } =
     useChannelBadgesStore((state) => state);
+  const fetchEmotes = useEmotesStore(({ fetch }) => fetch);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -26,6 +28,7 @@ const Popout = () => {
 
     fetchGlobalBadges();
     fetchChannelBadges(streamer);
+    fetchEmotes(streamer);
 
     const client = new Client({
       channels: [streamer],

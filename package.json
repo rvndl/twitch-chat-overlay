@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/sanitize-html": "^2.6.2",
     "framer-motion": "^7.2.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.3.0",
+    "sanitize-html": "^2.7.1",
     "tmi.js": "^1.8.5",
     "zustand": "^4.1.1"
   },
