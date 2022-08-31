@@ -3,6 +3,7 @@ import { Message } from "../store/messages";
 import { motion } from "framer-motion";
 import { Styles, useSettingsStore } from "../store/settings";
 import { Donk } from "./donk";
+import Nymn from "../assets/nymn.png";
 
 interface Props {
   message: Message;
@@ -50,6 +51,7 @@ export const MessageItem = ({
         <DefaultStyle message={message} badgesWithUrl={badgesWithUrl} />
       )}
       {style === "donk" && <DonkStyle message={message} />}
+      {style === "nymn" && <NymNStyle message={message} />}
     </motion.div>
   );
 };
@@ -80,6 +82,18 @@ const DonkStyle = ({ message: { user, message } }: { message: Message }) => (
   <div className="flex drop-shadow-md mb-2">
     <div style={{ color: user.color || "gray" }}>
       <Donk />
+    </div>
+    <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
+      {user["display-name"]}:
+    </p>
+    <p className="flex ml-1 flex-wrap">{message}</p>
+  </div>
+);
+
+const NymNStyle = ({ message: { user, message } }: { message: Message }) => (
+  <div className="flex drop-shadow-md mb-2">
+    <div className="w-8 h-8" style={{ backgroundColor: user.color || "gray" }}>
+      <img src="/nymn.png" className="w-8 h-8" />
     </div>
     <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
       {user["display-name"]}:

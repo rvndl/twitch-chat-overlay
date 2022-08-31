@@ -121,6 +121,7 @@ export const Controls = () => {
           >
             <option value="default">Default</option>
             <option value="donk">Donk</option>
+            <option value="nymn">NymN</option>
           </select>
         </div>
         <div className="flex items-center">
