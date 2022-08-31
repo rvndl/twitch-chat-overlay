@@ -36,7 +36,7 @@ export const MessageItem = ({
 
   return (
     <motion.div
-      {...(animate && { layout: "position" })}
+      // {...(animate && { layout: "position" })}
       initial={animate && { opacity: 0, x: -10 }}
       animate={animate && { opacity: 1, x: 0 }}
       transition={{ delay: 0.1 }}
