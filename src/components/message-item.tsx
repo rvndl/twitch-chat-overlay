@@ -92,8 +92,11 @@ const DonkStyle = ({ message: { user, message } }: { message: Message }) => (
 
 const NymNStyle = ({ message: { user, message } }: { message: Message }) => (
   <div className="flex drop-shadow-md mb-2">
-    <div className="w-8 h-8" style={{ backgroundColor: user.color || "gray" }}>
-      <img src="/nymn.png" className="w-8 h-8" />
+    <div
+      className="w-8 h-8 shrink-0"
+      style={{ backgroundColor: user.color || "gray" }}
+    >
+      <img src="/nymn.png" className="w-8 h-8 shrink-0" />
     </div>
     <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
       {user["display-name"]}:
