@@ -13,6 +13,7 @@ interface Props {
   channelBadges: any;
   animate?: boolean;
   style?: Styles;
+  showNames?: boolean;
 }
 
 export const MessageItem = ({
@@ -21,6 +22,7 @@ export const MessageItem = ({
   channelBadges,
   animate = true,
   style = "default",
+  showNames = true,
 }: Props) => {
   const badgesWithUrl = useMemo(() => {
     return Object.entries(message.user.badges || {}).map(([key, value]) => {
@@ -52,8 +54,12 @@ export const MessageItem = ({
       {style === "default" && (
         <DefaultStyle message={message} badgesWithUrl={badgesWithUrl} />
       )}
-      {style === "donk" && <DonkStyle message={message} />}
-      {style === "nymn" && <NymNStyle message={message} />}
+      {style === "donk" && (
+        <DonkStyle message={message} showNames={showNames} />
+      )}
+      {style === "nymn" && (
+        <NymNStyle message={message} showNames={showNames} />
+      )}
     </motion.div>
   );
 };
@@ -82,21 +88,35 @@ const DefaultStyle = ({
   );
 };
 
-const DonkStyle = ({ message: { user, message } }: { message: Message }) => (
+const DonkStyle = ({
+  message: { user, message },
+  showNames,
+}: {
+  message: Message;
+  showNames: boolean;
+}) => (
   <div className="flex drop-shadow-md mb-2">
     <div className="shrink-0" style={{ color: user.color || "gray" }}>
       <Donk />
     </div>
-    <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
-      {user["display-name"]}:
-    </p>
+    {showNames && (
+      <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
+        {user["display-name"]}:
+      </p>
+    )}
     <p className="flex ml-1 flex-wrap">
       <MessageWithEmotes message={message} />
     </p>
   </div>
 );
 
-const NymNStyle = ({ message: { user, message } }: { message: Message }) => (
+const NymNStyle = ({
+  message: { user, message },
+  showNames,
+}: {
+  message: Message;
+  showNames: boolean;
+}) => (
   <div className="flex drop-shadow-md mb-2">
     <div
       className="w-8 h-8 shrink-0"
@@ -104,9 +124,11 @@ const NymNStyle = ({ message: { user, message } }: { message: Message }) => (
     >
       <img src="/nymn.png" className="w-8 h-8 shrink-0" />
     </div>
-    <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
-      {user["display-name"]}:
-    </p>
+    {showNames && (
+      <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
+        {user["display-name"]}:
+      </p>
+    )}
     <p className="flex ml-1 flex-wrap">
       <MessageWithEmotes message={message} />
     </p>

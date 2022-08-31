@@ -2,12 +2,12 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { Client } from "tmi.js";
-import { MessageItem } from "../../../../components/message-item";
-import { useChannelBadgesStore } from "../../../../store/channel-badges";
-import { useEmotesStore } from "../../../../store/emotes";
-import { useGlobalBadgesStore } from "../../../../store/global-badges";
-import { useMessagesStore } from "../../../../store/messages";
-import { Styles } from "../../../../store/settings";
+import { MessageItem } from "../../../../../components/message-item";
+import { useChannelBadgesStore } from "../../../../../store/channel-badges";
+import { useEmotesStore } from "../../../../../store/emotes";
+import { useGlobalBadgesStore } from "../../../../../store/global-badges";
+import { useMessagesStore } from "../../../../../store/messages";
+import { Styles } from "../../../../../store/settings";
 
 const Popout = () => {
   const { messages, add: addMessage } = useMessagesStore((state) => state);
@@ -22,6 +22,7 @@ const Popout = () => {
   const streamer = router.query.streamer as string;
   const animate = router.query.animate as string;
   const style = router.query.style as Styles;
+  const showNames = router.query.showNames as string;
 
   useEffect(() => {
     if (!streamer) return;
@@ -60,6 +61,7 @@ const Popout = () => {
             channelBadges={channelBadges}
             message={message}
             animate={animate === "1"}
+            showNames={showNames === "1"}
             style={style}
             key={message.user.id + message.message}
           />

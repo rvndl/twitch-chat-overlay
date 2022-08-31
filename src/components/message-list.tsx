@@ -10,7 +10,7 @@ export const MessageList = () => {
   const messages = useMessagesStore(({ messages }) => messages);
   const globalBadges = useGlobalBadgesStore(({ badges }) => badges);
   const channelBadges = useChannelBadgesStore(({ badges }) => badges);
-  const { animate, style } = useSettingsStore((state) => state);
+  const { animate, style, showNames } = useSettingsStore((state) => state);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export const MessageList = () => {
               channelBadges={channelBadges}
               message={message}
               animate={animate}
+              showNames={showNames}
               style={style}
               key={message.user.id + message.message}
             />

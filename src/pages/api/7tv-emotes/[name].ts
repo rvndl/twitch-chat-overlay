@@ -24,14 +24,21 @@ export default async function handler(
     url: urls[0][1],
   }));
 
-  const channel7TVEmotes = await (
-    await (
-      await fetch(`https://api.7tv.app/v2/users/${broadcasterId}/emotes`)
-    ).json()
-  ).map(({ name, urls }: { name: any; urls: string[] }) => ({
-    name: name,
-    url: urls[0][1],
-  }));
+  const channel7TVEmotes = await await (
+    await fetch(`https://api.7tv.app/v2/users/${broadcasterId}/emotes`)
+  ).json();
 
-  res.status(200).json([...global7TVEmotes, ...channel7TVEmotes]);
+  if (channel7TVEmotes.status_code === 404) {
+    res.status(200).json([...global7TVEmotes]);
+    return;
+  }
+
+  const filtered = channel7TVEmotes.map(
+    ({ name, urls }: { name: any; urls: string[] }) => ({
+      name: name,
+      url: urls[0][1],
+    })
+  );
+
+  res.status(200).json([...global7TVEmotes, ...filtered]);
 }

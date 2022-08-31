@@ -18,9 +18,14 @@ export const Controls = () => {
   const fetchGlobalBadges = useGlobalBadgesStore(({ fetch }) => fetch);
   const fetchChannelBadges = useChannelBadgesStore(({ fetch }) => fetch);
   const fetchEmotes = useEmotesStore(({ fetch }) => fetch);
-  const { animate, toggleAnimate, setStyle, style } = useSettingsStore(
-    (state) => state
-  );
+  const {
+    animate,
+    toggleAnimate,
+    setStyle,
+    style,
+    showNames,
+    toggleShowNames,
+  } = useSettingsStore((state) => state);
 
   useEffect(() => {
     fetchGlobalBadges();
@@ -62,13 +67,13 @@ export const Controls = () => {
 
     navigator.clipboard.writeText(
       `${window.location.href}popout/${channelName}/${style}/${
-        animate ? "1" : "0"
-      }`
+        showNames ? "1" : "0"
+      }/${animate ? "1" : "0"}`
     );
 
     toast.success(
       "Overlay link copied to clipboard, you can now paste it in your browser source.",
-      { duration: 3000 }
+      { duration: 4000 }
     );
   };
 
@@ -78,14 +83,14 @@ export const Controls = () => {
       <div className="mt-4">
         <div className="w-72 flex flex-col">
           <label
-            htmlFor="first_name"
+            htmlFor="channelId_input"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Channel name
           </label>
           <input
             type="text"
-            id="first_name"
+            id="channelId_input"
             className=" border outline-none text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter channel name"
             onChange={(e) => setChannelName(e.target.value)}
@@ -109,8 +114,8 @@ export const Controls = () => {
         </div>
       </div>
       <hr className="border-t border-gray-600 my-4" />
-      <div className="flex flex-col gap-4">
-        <div>
+      <div className="flex flex-col gap-2">
+        <div className="mb-2">
           <label
             htmlFor="styles"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -141,6 +146,22 @@ export const Controls = () => {
             className="ml-2 text-sm font-medium text-gray-300"
           >
             Animate new messages
+          </label>
+        </div>
+        <div className="flex items-center">
+          <input
+            id="show-names-checkbox"
+            type="checkbox"
+            value=""
+            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+            checked={showNames}
+            onChange={() => toggleShowNames()}
+          />
+          <label
+            htmlFor="show-names-checkbox"
+            className="ml-2 text-sm font-medium text-gray-300"
+          >
+            Show usernames in custom styles
           </label>
         </div>
       </div>

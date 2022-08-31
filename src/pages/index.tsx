@@ -11,9 +11,26 @@ const Home = () => {
             <h2 className="text-lg">Changelog</h2>
             <ul className="list-disc list-inside text-gray-300 mt-2 text-xs">
               <li className="flex items-center">
-                <strong>31/08/22</strong> - Initial release{" "}
+                <p>
+                  <strong>01/09/22</strong> - Fixed 7TV bug
+                </p>
                 <img
-                  className="w-10"
+                  className="ml-1 h-4"
+                  src="https://cdn.7tv.app/emote/62fa9b8a589348b4bf5a0cb9/1x"
+                  alt="yeahbut7tv"
+                />
+              </li>
+              <li className="flex items-center">
+                <p>
+                  <strong>01/09/22</strong> - Added option to hide usernames
+                </p>
+              </li>
+              <li className="flex items-center">
+                <p>
+                  <strong>31/08/22</strong> - Initial release
+                </p>
+                <img
+                  className="ml-1 w-10"
                   src="https://cdn.7tv.app/emote/61e85cd5699aab943eab76cc/1x"
                   alt="forsenLevel"
                 />
