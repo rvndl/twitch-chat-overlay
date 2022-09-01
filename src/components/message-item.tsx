@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { Message } from "../store/messages";
 import { motion } from "framer-motion";
-import { Styles, useSettingsStore } from "../store/settings";
+import { Styles } from "../store/settings";
 import { Donk } from "./donk";
-import Nymn from "../assets/nymn.png";
 import { useEmotesStore } from "../store/emotes";
 import sanitize from "sanitize-html";
+import { shadeColor } from "../utils";
 
 interface Props {
   message: Message;
@@ -49,6 +49,9 @@ export const MessageItem = ({
       initial={animate && { opacity: 0, x: -10 }}
       animate={animate && { opacity: 1, x: 0 }}
       transition={{ delay: 0.1 }}
+      style={{
+        textShadow: "rgb(0 0 0) 0px 0px 2px",
+      }}
       className="flex font-bold"
     >
       {style === "default" && (
@@ -72,16 +75,16 @@ const DefaultStyle = ({
   badgesWithUrl: any[];
 }) => {
   return (
-    <div className="flex drop-shadow-md mb-1">
+    <div className="flex mb-1">
       <div className="flex items-start shrink-0">
         {badgesWithUrl.map((badge) => (
-          <img src={badge.url} key={badge.url} className="mr-1 shrink-0 mt-1" />
+          <img src={badge.url} key={badge.url} className="mt-1 mr-1 shrink-0" />
         ))}
       </div>
       <p className="flex shrink-0" style={{ color: user.color || "gray" }}>
         {user["display-name"]}:
       </p>
-      <p className="flex ml-1 flex-wrap">
+      <p className="flex flex-wrap ml-1">
         <MessageWithEmotes message={message} />
       </p>
     </div>
@@ -95,16 +98,16 @@ const DonkStyle = ({
   message: Message;
   showNames: boolean;
 }) => (
-  <div className="flex drop-shadow-md mb-2">
+  <div className="flex mb-2">
     <div className="shrink-0" style={{ color: user.color || "gray" }}>
       <Donk />
     </div>
     {showNames && (
-      <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
+      <p className="flex ml-1 shrink-0" style={{ color: user.color || "gray" }}>
         {user["display-name"]}:
       </p>
     )}
-    <p className="flex ml-1 flex-wrap">
+    <p className="flex flex-wrap ml-1">
       <MessageWithEmotes message={message} />
     </p>
   </div>
@@ -116,35 +119,45 @@ const NymNStyle = ({
 }: {
   message: Message;
   showNames: boolean;
-}) => (
-  <div className="flex drop-shadow-md mb-2">
-    <div
-      className="w-8 h-8 shrink-0"
-      style={{ backgroundColor: user.color || "gray" }}
-    >
-      <motion.img
-        animate={
-          message.includes("!vanish") && {
-            x: "100vw",
-            opacity: 0,
-            rotate: [0, -10, 10, -10, 10, -10, 10, -10, 10, -10, 10, -10],
-          }
-        }
-        transition={{ delay: 1, duration: 2 }}
-        src="/nymn.png"
+}) => {
+  const userColor = user.color || "#ccc";
+  const shadedColor = shadeColor(userColor, 50);
+
+  return (
+    <div className="flex mb-2">
+      <div
         className="w-8 h-8 shrink-0"
-      />
-    </div>
-    {showNames && (
-      <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
-        {user["display-name"]}:
+        style={{
+          background: `linear-gradient(0deg, ${shadedColor} 0%, ${userColor} 100%)`,
+        }}
+      >
+        <motion.img
+          animate={
+            (message.includes("!vanish") || message.includes("!vent")) && {
+              x: "100vw",
+              opacity: 0,
+              rotate: [0, -10, 10, -10, 10, -10, 10, -10, 10, -10, 10, -10],
+            }
+          }
+          transition={{ delay: 1, duration: 2 }}
+          src="/nymn.png"
+          className="w-8 h-8 shrink-0"
+        />
+      </div>
+      {showNames && (
+        <p
+          className="flex ml-1 shrink-0"
+          style={{ color: user.color || "gray" }}
+        >
+          {user["display-name"]}:
+        </p>
+      )}
+      <p className="flex flex-wrap ml-1">
+        <MessageWithEmotes message={message} />
       </p>
-    )}
-    <p className="flex ml-1 flex-wrap">
-      <MessageWithEmotes message={message} />
-    </p>
-  </div>
-);
+    </div>
+  );
+};
 
 const MessageWithEmotes = ({ message }: { message: string }) => {
   const emotes = useEmotesStore(({ emotes }) => emotes);
@@ -159,7 +172,7 @@ const MessageWithEmotes = ({ message }: { message: string }) => {
       const found = emotes.find((emote) => emote.name === word);
       if (found) {
         replacements.push(
-          ` <img src="${found.url}"  height="24" style="margin-left: 2px; margin-right: 2px;" /> `
+          ` <img src="${found.url}" height="24" style="display: flex; margin-left: 2px; margin-right: 2px; max-width: 60px" /> `
         );
       } else {
         replacements.push(word);
