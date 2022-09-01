@@ -172,7 +172,7 @@ const MessageWithEmotes = ({ message }: { message: string }) => {
       const found = emotes.find((emote) => emote.name === word);
       if (found) {
         replacements.push(
-          ` <img src="${found.url}" height="24" style="display: flex; margin-left: 2px; margin-right: 2px; max-width: 60px" /> `
+          ` <img src="${found.url}" style="display: flex; margin-left: 5px; margin-right: 5px; max-width: 60px; max-height: 24px;" /> `
         );
       } else {
         replacements.push(word);

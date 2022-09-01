@@ -12,6 +12,11 @@ const Home = () => {
             <ul className="mt-2 text-xs text-gray-300 list-disc list-inside">
               <li className="flex items-center">
                 <p>
+                  <strong>01/09/22</strong> - Fixed emote height
+                </p>
+              </li>
+              <li className="flex items-center">
+                <p>
                   <strong>01/09/22</strong> - Improved message shadow. <br />
                   Reduced max emote width. Added gradient to NymN style
                 </p>
