@@ -1,9 +1,10 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useChannelBadgesStore } from "../store/channel-badges";
-import { useGlobalBadgesStore } from "../store/global-badges";
-import { Message, useMessagesStore } from "../store/messages";
-import { useSettingsStore } from "../store/settings";
+import { AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { useChannelBadgesStore } from "../../store/channel-badges";
+import { useGlobalBadgesStore } from "../../store/global-badges";
+import { useMessagesStore } from "../../store/messages";
+import { useSettingsStore } from "../../store/settings";
+
 import { MessageItem } from "./message-item";
 
 export const MessageList = () => {
@@ -13,16 +14,8 @@ export const MessageList = () => {
   const { animate, style, showNames } = useSettingsStore((state) => state);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      // containerRef.current.lastElementChild?.scrollIntoView({
-      //   behavior: "smooth",
-      // });
-    }
-  }, [messages]);
-
   return (
-    <div className="h-full bg-gray-800 border border-gray-700 rounded-md flex flex-col">
+    <div className="flex flex-col h-full bg-gray-800 border border-gray-700 rounded-md">
       <h2 className="p-4 text-xl font-semibold">Chat preview</h2>
       <AnimatePresence>
         <div

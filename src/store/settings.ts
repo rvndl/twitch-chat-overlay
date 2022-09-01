@@ -1,6 +1,6 @@
 import create from "zustand";
 
-export type Styles = "default" | "donk" | "nymn";
+export type Styles = "default" | "donk" | "donkExtra" | "nymn";
 
 interface SettingsState {
   animate: boolean;

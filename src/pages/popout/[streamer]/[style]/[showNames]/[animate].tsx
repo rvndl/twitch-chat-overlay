@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { Client } from "tmi.js";
-import { MessageItem } from "../../../../../components/message-item";
+import { MessageItem } from "../../../../../components/message/message-item";
 import { useChannelBadgesStore } from "../../../../../store/channel-badges";
 import { useEmotesStore } from "../../../../../store/emotes";
 import { useGlobalBadgesStore } from "../../../../../store/global-badges";

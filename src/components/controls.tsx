@@ -78,10 +78,10 @@ export const Controls = () => {
   };
 
   return (
-    <div className="p-4 border w-min bg-gray-800 rounded-md border-gray-700">
+    <div className="p-4 bg-gray-800 border border-gray-700 rounded-md w-min">
       <h1 className="text-xl font-semibold">Settings</h1>
       <div className="mt-4">
-        <div className="w-72 flex flex-col">
+        <div className="flex flex-col w-72">
           <label
             htmlFor="channelId_input"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -113,7 +113,7 @@ export const Controls = () => {
           </div>
         </div>
       </div>
-      <hr className="border-t border-gray-600 my-4" />
+      <hr className="my-4 border-t border-gray-600" />
       <div className="flex flex-col gap-2">
         <div className="mb-2">
           <label
@@ -129,6 +129,7 @@ export const Controls = () => {
           >
             <option value="default">Default</option>
             <option value="donk">Donk</option>
+            <option value="donkExtra">Extra donk</option>
             <option value="nymn">NymN</option>
           </select>
         </div>
@@ -137,7 +138,7 @@ export const Controls = () => {
             id="animate-checkbox"
             type="checkbox"
             value=""
-            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2"
             checked={animate}
             onChange={() => toggleAnimate()}
           />
@@ -153,7 +154,7 @@ export const Controls = () => {
             id="show-names-checkbox"
             type="checkbox"
             value=""
-            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
+            className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2"
             checked={showNames}
             onChange={() => toggleShowNames()}
           />
