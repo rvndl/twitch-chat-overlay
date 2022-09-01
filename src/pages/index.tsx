@@ -12,6 +12,12 @@ const Home = () => {
             <ul className="list-disc list-inside text-gray-300 mt-2 text-xs">
               <li className="flex items-center">
                 <p>
+                  <strong>01/09/22</strong> - Added <code>!vanish</code> support
+                  for NymN style
+                </p>
+              </li>
+              <li className="flex items-center">
+                <p>
                   <strong>01/09/22</strong> - Fixed 7TV bug
                 </p>
                 <img

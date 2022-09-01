@@ -122,7 +122,18 @@ const NymNStyle = ({
       className="w-8 h-8 shrink-0"
       style={{ backgroundColor: user.color || "gray" }}
     >
-      <img src="/nymn.png" className="w-8 h-8 shrink-0" />
+      <motion.img
+        animate={
+          message.includes("!vanish") && {
+            x: "100vw",
+            opacity: 0,
+            rotate: [0, -10, 10, -10, 10, -10, 10, -10, 10, -10, 10, -10],
+          }
+        }
+        transition={{ delay: 1, duration: 2 }}
+        src="/nymn.png"
+        className="w-8 h-8 shrink-0"
+      />
     </div>
     {showNames && (
       <p className="flex shrink-0 ml-1" style={{ color: user.color || "gray" }}>
