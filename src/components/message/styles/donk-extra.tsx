@@ -18,8 +18,6 @@ export const DonkExtraStyle = ({
         fontFamily: "crayon",
         letterSpacing: "2px",
         fontSize: "16px",
-        WebkitTextStrokeWidth: "0px !important",
-        WebkitTextStrokeColor: "rgba(0, 0, 0, 0) !important",
       }}
     >
       <div className="shrink-0" style={{ color: user.color || "gray" }}>

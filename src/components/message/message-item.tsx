@@ -55,8 +55,10 @@ export const MessageItem = ({
       transition={{ delay: 0.1 }}
       style={{
         textShadow: "rgb(0 0 0) 1px 1px 3px",
-        WebkitTextStrokeWidth: "0.5px",
-        WebkitTextStrokeColor: "rgba(0, 0, 0, 0.75)",
+        ...(style !== "donkExtra" && {
+          WebkitTextStrokeWidth: "0.5px",
+          WebkitTextStrokeColor: "rgba(0, 0, 0, 0.75)",
+        }),
       }}
       className="flex font-bold"
     >
