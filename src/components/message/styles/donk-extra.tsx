@@ -1,4 +1,5 @@
 import { Message } from "../../../store/messages";
+import { lightenColor } from "../../../utils";
 import { Donk } from "../../donk";
 import { MessageWithEmotes } from "../message-emotes";
 
@@ -11,6 +12,8 @@ export const DonkExtraStyle = ({
   message: { user, message },
   showNames,
 }: Props) => {
+  const userColor = lightenColor(user.color);
+
   return (
     <div
       className="flex mb-2"
@@ -20,14 +23,11 @@ export const DonkExtraStyle = ({
         fontSize: "16px",
       }}
     >
-      <div className="shrink-0" style={{ color: user.color || "gray" }}>
+      <div className="shrink-0" style={{ color: userColor }}>
         <Donk />
       </div>
       {showNames && (
-        <p
-          className="flex ml-1 shrink-0"
-          style={{ color: user.color || "gray" }}
-        >
+        <p className="flex ml-1 shrink-0" style={{ color: userColor }}>
           {user["display-name"]}:
         </p>
       )}

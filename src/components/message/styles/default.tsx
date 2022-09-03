@@ -1,4 +1,5 @@
 import { Message } from "../../../store/messages";
+import { lightenColor } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
 
 interface Props {
@@ -17,7 +18,7 @@ export const DefaultStyle = ({
           <img src={badge.url} key={badge.url} className="mt-1 mr-1 shrink-0" />
         ))}
       </div>
-      <p className="flex shrink-0" style={{ color: user.color || "gray" }}>
+      <p className="flex shrink-0" style={{ color: lightenColor(user.color) }}>
         {user["display-name"]}:
       </p>
       <p className="flex flex-wrap ml-1">

@@ -1,7 +1,12 @@
 export const Changelog = () => (
   <div className="p-2 text-sm font-medium text-white bg-gray-800 border border-gray-700 rounded-md">
     <h2 className="text-lg">Changelog</h2>
-    <ul className="mt-2 text-xs text-gray-300 list-disc list-inside">
+    <ul className="mt-2 overflow-auto text-xs text-gray-300 list-disc list-inside max-h-32">
+      <li className="flex items-center">
+        <p>
+          <strong>03/09/22</strong> - Lighten dark user colors
+        </p>
+      </li>
       <li className="flex items-center">
         <p>
           <strong>02/09/22</strong> - Added extra donk mode

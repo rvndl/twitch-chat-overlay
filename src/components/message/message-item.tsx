@@ -2,11 +2,6 @@ import { useMemo } from "react";
 import { Message } from "../../store/messages";
 import { motion } from "framer-motion";
 import { Styles } from "../../store/settings";
-import { Donk } from "../donk";
-import { useEmotesStore } from "../../store/emotes";
-import sanitize from "sanitize-html";
-import { shadeColor } from "../../utils";
-import { MessageWithEmotes } from "./message-emotes";
 import { DefaultStyle } from "./styles/default";
 import { DonkStyle } from "./styles/donk";
 import { NymNStyle } from "./styles/nymn";
@@ -32,7 +27,8 @@ export const MessageItem = ({
   const badgesWithUrl = useMemo(() => {
     return Object.entries(message.user.badges || {}).map(([key, value]) => {
       if (key === "subscriber") {
-        const badge = channelBadges?.badge_sets?.[key]?.versions?.[value || -1];
+        const badge: any =
+          channelBadges?.badge_sets?.[key]?.versions?.[value || -1];
 
         return {
           url: badge?.image_url_1x,

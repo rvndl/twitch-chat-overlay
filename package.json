@@ -16,6 +16,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.3.0",
     "sanitize-html": "^2.7.1",
+    "tinycolor2": "^1.4.2",
     "tmi.js": "^1.8.5",
     "zustand": "^4.1.1"
   },
@@ -24,6 +25,7 @@
     "@types/node": "18.7.14",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
+    "@types/tinycolor2": "^1.4.3",
     "@types/tmi.js": "^1.8.1",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",

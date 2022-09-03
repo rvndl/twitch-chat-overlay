@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Message } from "../../../store/messages";
-import { shadeColor } from "../../../utils";
+import { lightenColor, shadeColor } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
-  const userColor = user.color || "#ccc";
-  const shadedColor = shadeColor(userColor, 50);
+  const userColor = lightenColor(user.color);
+  const shadedColor = shadeColor(userColor, 30);
 
   return (
     <div className="flex mb-2">
@@ -34,10 +34,7 @@ export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
         />
       </div>
       {showNames && (
-        <p
-          className="flex ml-1 shrink-0"
-          style={{ color: user.color || "gray" }}
-        >
+        <p className="flex ml-1 shrink-0" style={{ color: userColor }}>
           {user["display-name"]}:
         </p>
       )}
