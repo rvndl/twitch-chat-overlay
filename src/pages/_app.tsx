@@ -30,6 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           cardType: "summary_large_image",
         }}
       />
+      <meta
+        name="google-site-verification"
+        content="Q_yP03gI2rE6U195WodXLoQ5c7cctUVc_gAL9R92Uto"
+      />
       <Toaster />
       <Component {...pageProps} />
     </>
