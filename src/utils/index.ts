@@ -1,23 +1,5 @@
 import tinycolor from "tinycolor2";
 
-const defaultTwitchColors = [
-  "#FF0000",
-  "#0000FF",
-  "#008000",
-  "#B22222",
-  "#FF7F50",
-  "#9ACD32",
-  "#FF4500",
-  "#2E8B57",
-  "#DAA520",
-  "#D2691E",
-  "#5F9EA0",
-  "#1E90FF",
-  "#FF69B4",
-  "#8A2BE2",
-  "#00FF7F",
-];
-
 const crayonColors = [
   "#FF355E",
   "#FD5B78",
@@ -40,13 +22,8 @@ const crayonColors = [
 export const getRandomCrayonColor = () =>
   crayonColors[Math.floor(Math.random() * crayonColors.length)];
 
-export const getRandomTwitchColor = () =>
-  defaultTwitchColors[Math.floor(Math.random() * defaultTwitchColors.length)];
-
 export const lightenColor = (color?: string) => {
-  if (!color) {
-    return getRandomTwitchColor();
-  }
+  color = color || "#FF7F50";
 
   const isDim = tinycolor(color).getBrightness() <= 50;
   if (isDim) {

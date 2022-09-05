@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import client from "../../../server/axios";
+import { fetch7TvEmotes } from "../../../server/providers/7tv";
+import { fetchBttvEmotes } from "../../../server/providers/bttv";
+import { fetchFfzEmotes } from "../../../server/providers/ffz";
+import { fetchTwitchEmotes } from "../../../server/providers/twitch";
 
-interface Emote {
-  name: string;
-  images: {
-    url_1x: string;
-    url_2x: string;
-    url_4x: string;
-  };
+interface UserDetails {
+  data: {
+    id: string;
+  }[];
 }
 
 export default async function handler(
@@ -14,33 +16,28 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const name = req.query.name as string;
-  const userDetails = await (
-    await fetch("https://api.twitch.tv/helix/users?login=" + name, {
-      headers: {
-        Authorization: "Bearer a6bq8y6p0kep2chb5imd502mc8tq7m",
-        "Client-Id": "cmh9stzetj25f3t6nsxykjt51z1l3j",
-      },
-    })
-  ).json();
+  if (!name) {
+    res.json({ error: "Missing name" });
+    return;
+  }
 
-  const broadcasterId = userDetails.data[0].id;
+  const { data: userDetails } = await client.get<UserDetails>(
+    `https://api.twitch.tv/helix/users?login=${name}`
+  );
 
-  const emotes = await (
-    await fetch(
-      "https://api.twitch.tv/helix/chat/emotes?broadcaster_id=" + broadcasterId,
-      {
-        headers: {
-          Authorization: "Bearer a6bq8y6p0kep2chb5imd502mc8tq7m",
-          "Client-Id": "cmh9stzetj25f3t6nsxykjt51z1l3j",
-        },
-      }
-    )
-  ).json();
+  const userId = userDetails.data[0].id;
 
-  const fotmatted = emotes.data.map(({ name, images }: Emote) => ({
-    name,
-    url: images.url_1x,
-  }));
+  const twitchEmotes = fetchTwitchEmotes(userId);
+  const bttvEmotes = fetchBttvEmotes(userId);
+  const ffzEmotes = fetchFfzEmotes(userId);
+  const sevenTvEmotes = fetch7TvEmotes(userId);
 
-  res.status(200).json(fotmatted);
+  const emotes = await Promise.all([
+    twitchEmotes,
+    bttvEmotes,
+    ffzEmotes,
+    sevenTvEmotes,
+  ]);
+
+  res.status(200).json([...emotes.flat()]);
 }

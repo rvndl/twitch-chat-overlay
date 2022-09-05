@@ -1,17 +1,15 @@
 import { AnimatePresence } from "framer-motion";
 import { useRef } from "react";
-import { useChannelBadgesStore } from "../../store/channel-badges";
-import { useGlobalBadgesStore } from "../../store/global-badges";
-import { useMessagesStore } from "../../store/messages";
-import { useSettingsStore } from "../../store/settings";
-
+import { Message } from "../../interfaces/message";
+import { Settings } from "../../interfaces/settings";
 import { MessageItem } from "./message-item";
 
-export const MessageList = () => {
-  const messages = useMessagesStore(({ messages }) => messages);
-  const globalBadges = useGlobalBadgesStore(({ badges }) => badges);
-  const channelBadges = useChannelBadgesStore(({ badges }) => badges);
-  const { animate, style, showNames } = useSettingsStore((state) => state);
+interface Props {
+  messages: Message[];
+  settings: Settings;
+}
+
+export const MessageList = ({ messages, settings }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -24,12 +22,10 @@ export const MessageList = () => {
         >
           {messages.map((message) => (
             <MessageItem
-              globalBadges={globalBadges}
-              channelBadges={channelBadges}
               message={message}
-              animate={animate}
-              showNames={showNames}
-              style={style}
+              animate={settings.animate}
+              showNames={settings.showNames}
+              style={settings.style}
               key={message.user.id + message.message}
             />
           ))}

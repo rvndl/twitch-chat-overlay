@@ -1,6 +1,6 @@
-import { Message } from "../../../store/messages";
+import { Message } from "../../../interfaces/message";
 import { lightenColor } from "../../../utils";
-import { Donk } from "../../donk";
+import { Donk } from "../../icons";
 import { MessageWithEmotes } from "../message-emotes";
 
 interface Props {

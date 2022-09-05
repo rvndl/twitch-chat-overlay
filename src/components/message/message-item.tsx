@@ -1,48 +1,45 @@
-import { useMemo } from "react";
-import { Message } from "../../store/messages";
+import { useContext, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Styles } from "../../store/settings";
 import { DefaultStyle } from "./styles/default";
 import { DonkStyle } from "./styles/donk";
 import { NymNStyle } from "./styles/nymn";
 import { DonkExtraStyle } from "./styles/donk-extra";
+import { BadgesContext } from "../../context/badges";
+import { Message } from "../../interfaces/message";
 
 interface Props {
   message: Message;
-  globalBadges: any;
-  channelBadges: any;
   animate?: boolean;
-  style?: Styles;
+  style?: any;
   showNames?: boolean;
 }
 
 export const MessageItem = ({
   message,
-  globalBadges,
-  channelBadges,
   animate = true,
   style = "default",
   showNames = true,
 }: Props) => {
+  const badges = useContext(BadgesContext);
+
   const badgesWithUrl = useMemo(() => {
     return Object.entries(message.user.badges || {}).map(([key, value]) => {
       if (key === "subscriber") {
-        const badge: any =
-          channelBadges?.badge_sets?.[key]?.versions?.[value || -1];
+        const badge: any = badges?.badge_sets?.[key]?.versions?.[value || -1];
 
         return {
           url: badge?.image_url_1x,
           title: badge?.title,
         };
       } else {
-        const badge = globalBadges?.badge_sets?.[key]?.versions?.[value || "1"];
+        const badge: any = badges?.badge_sets?.[key]?.versions?.[value || "1"];
         return {
           url: badge?.image_url_1x,
           title: badge?.title,
         };
       }
     });
-  }, [globalBadges, channelBadges, message]);
+  }, [badges, message]);
 
   return (
     <motion.div

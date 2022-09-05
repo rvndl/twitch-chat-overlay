@@ -1,4 +1,4 @@
-import { Message } from "../../../store/messages";
+import { Message } from "../../../interfaces/message";
 import { lightenColor } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
 

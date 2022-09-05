@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import sanitize from "sanitize-html";
-import { useEmotesStore } from "../../store/emotes";
+import { EmotesContext } from "../../context/emotes";
 import { getRandomCrayonColor } from "../../utils";
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 }
 
 export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
-  const emotes = useEmotesStore(({ emotes }) => emotes);
+  const emotes = useContext(EmotesContext);
 
-  const newMessage = useMemo(() => {
+  const messageWithEmotes = useMemo(() => {
     const replacements: any[] = [];
     const sanitized = sanitize(message, {
       allowedTags: [],
@@ -38,11 +38,11 @@ export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
     });
 
     return replacements.join(" ");
-  }, [message]);
+  }, [message, donkMode, emotes]);
 
   return (
     <span
-      dangerouslySetInnerHTML={{ __html: newMessage }}
+      dangerouslySetInnerHTML={{ __html: messageWithEmotes }}
       className="flex flex-wrap"
     ></span>
   );

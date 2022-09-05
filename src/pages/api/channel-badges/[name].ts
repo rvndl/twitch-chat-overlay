@@ -1,4 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import client from "../../../server/axios";
+import { fetchTwitchBadges } from "../../../server/providers/twitch";
+
+interface UserDetails {
+  data: {
+    id: string;
+  }[];
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -6,20 +14,13 @@ export default async function handler(
 ) {
   const { name } = req.query;
 
-  const userDetails = await (
-    await fetch("https://api.twitch.tv/helix/users?login=" + name, {
-      headers: {
-        Authorization: "Bearer a6bq8y6p0kep2chb5imd502mc8tq7m",
-        "Client-Id": "cmh9stzetj25f3t6nsxykjt51z1l3j",
-      },
-    })
-  ).json();
+  const { data: userDetails } = await client.get<UserDetails>(
+    `https://api.twitch.tv/helix/users?login=${name}`
+  );
 
   const userId = userDetails.data[0].id;
 
-  const channelBadges = await (
-    await fetch(`https://badges.twitch.tv/v1/badges/channels/${userId}/display`)
-  ).json();
+  const badges = await fetchTwitchBadges(userId);
 
-  res.status(200).json({ ...channelBadges });
+  res.status(200).json({ ...badges });
 }
