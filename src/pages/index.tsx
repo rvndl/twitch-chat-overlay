@@ -29,13 +29,13 @@ const Home = () => {
   const handleOnSettingsChange = (settings: Settings) => setSettings(settings);
 
   return (
-    <div className="flex w-screen h-screen gap-4 p-4 bg-gray-900">
+    <div className="flex flex-col-reverse w-screen h-screen gap-4 p-4 bg-gray-900 md:flex-row">
       <div className="flex flex-col">
         <Controls
           onConnect={handleOnConnect}
           onSettingsChange={handleOnSettingsChange}
         />
-        <div className="flex flex-col mt-auto gap-y-4">
+        <div className="flex flex-col mt-4 gap-y-4 md:mt-auto">
           <Changelog />
           <Footer />
         </div>
