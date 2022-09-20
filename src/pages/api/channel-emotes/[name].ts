@@ -1,15 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import client from "../../../server/axios";
+import { getUser } from "../../../server/lib/user";
 import { fetch7TvEmotes } from "../../../server/providers/7tv";
 import { fetchBttvEmotes } from "../../../server/providers/bttv";
 import { fetchFfzEmotes } from "../../../server/providers/ffz";
 import { fetchTwitchEmotes } from "../../../server/providers/twitch";
-
-interface UserDetails {
-  data: {
-    id: string;
-  }[];
-}
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,16 +16,12 @@ export default async function handler(
     return;
   }
 
-  const { data: userDetails } = await client.get<UserDetails>(
-    `https://api.twitch.tv/helix/users?login=${name}`
-  );
+  const { id } = await getUser(name as string);
 
-  const userId = userDetails.data[0].id;
-
-  const twitchEmotes = fetchTwitchEmotes(userId);
-  const bttvEmotes = fetchBttvEmotes(userId);
-  const ffzEmotes = fetchFfzEmotes(userId);
-  const sevenTvEmotes = fetch7TvEmotes(userId);
+  const twitchEmotes = fetchTwitchEmotes(id);
+  const bttvEmotes = fetchBttvEmotes(id);
+  const ffzEmotes = fetchFfzEmotes(id);
+  const sevenTvEmotes = fetch7TvEmotes(id);
 
   const emotes = await Promise.all([
     twitchEmotes,

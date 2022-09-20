@@ -38,6 +38,16 @@ const Popout = () => {
     }
   }, [messages, animate]);
 
+  useEffect(() => {
+    if (!streamer) return;
+    const refresh = messages.find(
+      (m) =>
+        (m.user.mod === true || m.user.badges?.broadcaster === "1") &&
+        m.message === "-refreshemotes"
+    );
+    if (refresh) fetchEmotes(streamer);
+  }, [messages]);
+
   return (
     <BadgesContext.Provider value={badges}>
       <EmotesContext.Provider value={emotes}>
