@@ -16,7 +16,7 @@ export default async function handler(
     return;
   }
 
-  const { id } = await getUser(name as string);
+  const { id } = await getUser(name);
 
   const twitchEmotes = fetchTwitchEmotes(id);
   const bttvEmotes = fetchBttvEmotes(id);
