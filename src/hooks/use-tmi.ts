@@ -17,7 +17,9 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
       channels: [channel],
     });
 
-    console.log(client.readyState());
+    if (client.getChannels().length > 0) {
+      client.disconnect();
+    }
 
     client.connect();
 
