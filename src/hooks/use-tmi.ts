@@ -17,7 +17,8 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
       channels: [channel],
     });
 
-    client.disconnect();
+    console.log(client.readyState());
+
     client.connect();
 
     client.on("message", (_, user, message) =>

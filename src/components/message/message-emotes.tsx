@@ -12,7 +12,7 @@ export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
   const emotes = useContext(EmotesContext);
 
   const messageWithEmotes = useMemo(() => {
-    const replacements: any[] = [];
+    const replacements: string[] = [];
     const sanitized = sanitize(message, {
       allowedTags: [],
       allowedAttributes: {},
