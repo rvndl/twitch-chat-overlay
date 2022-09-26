@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
-import { MessageItem } from "../../components/message/message-item";
+import { MessageItem } from "../../components/message/message";
 import { BadgesContext } from "../../context/badges";
 import { EmotesContext } from "../../context/emotes";
 import { useBadges } from "../../hooks/use-badges";
