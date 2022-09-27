@@ -6,11 +6,13 @@ import { NymNStyle } from "./styles/nymn";
 import { DonkExtraStyle } from "./styles/donk-extra";
 import { BadgesContext } from "../../context/badges";
 import { Message } from "../../interfaces/message";
+import { match } from "ts-pattern";
+import { Style } from "../../interfaces/settings";
 
 interface Props {
   message: Message;
   animate?: boolean;
-  style?: any;
+  style?: Style;
   showNames?: boolean;
 }
 
@@ -55,18 +57,19 @@ export const MessageItem = ({
       }}
       className="flex font-bold"
     >
-      {style === "default" && (
-        <DefaultStyle message={message} badgesWithUrl={badgesWithUrl} />
-      )}
-      {style === "donk" && (
-        <DonkStyle message={message} showNames={showNames} />
-      )}
-      {style === "donkExtra" && (
-        <DonkExtraStyle message={message} showNames={showNames} />
-      )}
-      {style === "nymn" && (
-        <NymNStyle message={message} showNames={showNames} />
-      )}
+      {match(style)
+        .with("donk", () => (
+          <DonkStyle message={message} showNames={showNames} />
+        ))
+        .with("donkExtra", () => (
+          <DonkExtraStyle message={message} showNames={showNames} />
+        ))
+        .with("nymn", () => (
+          <NymNStyle message={message} showNames={showNames} />
+        ))
+        .otherwise(() => (
+          <DefaultStyle message={message} badgesWithUrl={badgesWithUrl} />
+        ))}
     </motion.div>
   );
 };

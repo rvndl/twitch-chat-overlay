@@ -7,6 +7,7 @@ import { EmotesContext } from "../../context/emotes";
 import { useBadges } from "../../hooks/use-badges";
 import { useEmotes } from "../../hooks/use-emotes";
 import { useTmi } from "../../hooks/use-tmi";
+import { Style } from "../../interfaces/settings";
 
 const Popout = () => {
   const { messages, connect } = useTmi();
@@ -48,7 +49,7 @@ const Popout = () => {
                 message={message}
                 animate={animate === "1"}
                 showNames={showNames === "1"}
-                style={style}
+                style={style as Style}
                 key={message.user.id + message.message}
               />
             ))}
