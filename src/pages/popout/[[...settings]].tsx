@@ -8,9 +8,18 @@ import { useBadges } from "../../hooks/use-badges";
 import { useEmotes } from "../../hooks/use-emotes";
 import { useTmi } from "../../hooks/use-tmi";
 import { Style } from "../../interfaces/settings";
+import { isModOrBroadcaster } from "../../utils";
+
+function getPopoutSetting<T>(
+  settings: string | string[] | undefined,
+  index: number,
+  defaultValue: T
+): T {
+  return settings?.[index] ? (settings[index] as unknown as T) : defaultValue;
+}
 
 const Popout = () => {
-  const { messages, connect } = useTmi();
+  const { message, messages, connect } = useTmi();
   const { emotes, fetch: fetchEmotes } = useEmotes();
   const { badges, fetch: fetchBadges } = useBadges();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,10 +27,10 @@ const Popout = () => {
   const router = useRouter();
   const { settings } = router.query;
 
-  const streamer = settings?.[0];
-  const style = settings?.[1];
-  const showNames = settings?.[2];
-  const animate = settings?.[3];
+  const streamer = getPopoutSetting<string>(settings, 0, "");
+  const style = getPopoutSetting<Style>(settings, 1, "default");
+  const showNames = getPopoutSetting<string>(settings, 2, "0");
+  const animate = getPopoutSetting<string>(settings, 3, "0");
 
   useEffect(() => {
     if (!streamer) return;
@@ -39,11 +48,20 @@ const Popout = () => {
     }
   }, [messages, animate]);
 
+  useEffect(() => {
+    if (!message || !streamer) return;
+    if (!isModOrBroadcaster(message.user)) return;
+
+    if (message.message.includes("!refreshemotes")) {
+      fetchEmotes(streamer);
+    }
+  }, [streamer, message]);
+
   return (
     <BadgesContext.Provider value={badges}>
       <EmotesContext.Provider value={emotes}>
-        <AnimatePresence>
-          <div className="overflow-hidden" ref={containerRef}>
+        <div className="overflow-hidden" ref={containerRef}>
+          <AnimatePresence>
             {messages.map((message) => (
               <MessageItem
                 message={message}
@@ -53,8 +71,8 @@ const Popout = () => {
                 key={message.user.id + message.message}
               />
             ))}
-          </div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
       </EmotesContext.Provider>
     </BadgesContext.Provider>
   );

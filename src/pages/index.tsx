@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Changelog } from "../components/changelog";
+import { Commands } from "../components/commands";
 import { Controls } from "../components/controls";
 import { Footer } from "../components/footer";
 import { MessageList } from "../components/message/message-list";
@@ -36,7 +36,7 @@ const Home = () => {
           onSettingsChange={handleOnSettingsChange}
         />
         <div className="flex flex-col mt-4 gap-y-4 md:mt-auto">
-          <Changelog />
+          <Commands />
           <Footer />
         </div>
       </div>

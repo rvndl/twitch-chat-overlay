@@ -1,13 +1,13 @@
-import { useContext, useMemo } from "react";
+import { memo, useContext, useMemo } from "react";
 import { motion } from "framer-motion";
 import { DefaultStyle } from "./styles/default";
 import { DonkStyle } from "./styles/donk";
-import { NymNStyle } from "./styles/nymn";
 import { DonkExtraStyle } from "./styles/donk-extra";
 import { BadgesContext } from "../../context/badges";
 import { Message } from "../../interfaces/message";
 import { match } from "ts-pattern";
 import { Style } from "../../interfaces/settings";
+import { NymNStyle } from "./styles/nymn";
 
 interface Props {
   message: Message;

@@ -8,6 +8,7 @@ interface TmiOptions {
 
 export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [message, setMessage] = useState<Message>();
   const [channel, setChannel] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,12 +24,13 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
 
     client.connect();
 
-    client.on("message", (_, user, message) =>
+    client.on("message", (_, user, message) => {
+      setMessage({ user, message });
       setMessages((messages) => [
         ...messages.slice(-historySize),
         { user, message },
-      ])
-    );
+      ]);
+    });
 
     return () => {
       client.disconnect();
@@ -40,5 +42,5 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
     setChannel(channel);
   };
 
-  return { messages, connect };
+  return { message, messages, connect };
 };

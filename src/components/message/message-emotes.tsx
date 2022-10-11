@@ -43,7 +43,7 @@ export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
   return (
     <span
       dangerouslySetInnerHTML={{ __html: messageWithEmotes }}
-      className="flex flex-wrap"
+      className="inline-flex flex-wrap"
     ></span>
   );
 };

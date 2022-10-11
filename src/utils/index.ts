@@ -1,4 +1,5 @@
 import tinycolor from "tinycolor2";
+import { ChatUserstate } from "tmi.js";
 
 const crayonColors = [
   "#FF355E",
@@ -35,3 +36,7 @@ export const lightenColor = (color?: string) => {
 
 export const shadeColor = (color: string, amount: number) =>
   tinycolor(color).brighten(amount).toHexString();
+
+export const isModOrBroadcaster = (user: ChatUserstate) => {
+  return user.mod || user.badges?.broadcaster === "1";
+};
