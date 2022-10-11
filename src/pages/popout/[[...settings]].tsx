@@ -35,6 +35,8 @@ const Popout = () => {
   useEffect(() => {
     if (!streamer) return;
 
+    window.document.body.classList.add("overflow-hidden");
+
     fetchEmotes(streamer);
     fetchBadges(streamer);
     connect(streamer);
