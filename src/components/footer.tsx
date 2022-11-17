@@ -8,7 +8,7 @@ export const Footer = () => (
       rel="noreferrer"
       className="flex items-center"
     >
-      Checkout at GitHub
+      Check out on GitHub
       <span className="block w-5 h-5 ml-2">
         <Github />
       </span>
