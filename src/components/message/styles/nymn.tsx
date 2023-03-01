@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { Message } from "../../../interfaces/message";
-import { lightenColor, shadeColor } from "../../../utils";
+import { lightenColor, shadeColor, vanishCommands } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
-
-const vanishCommands = ["!vanish", "!vent", "vanish0"];
 
 interface Props {
   message: Message;

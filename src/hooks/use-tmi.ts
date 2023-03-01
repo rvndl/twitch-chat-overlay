@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Client } from "tmi.js";
 import { Message } from "../interfaces/message";
+import { isASCIIArt } from "../utils";
 
 interface TmiOptions {
   historySize: number;
@@ -25,6 +26,10 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
     client.connect();
 
     client.on("message", (_, user, message) => {
+      if (isASCIIArt(message)) {
+        return;
+      }
+
       setMessage({ user, message });
       setMessages((messages) => [
         ...messages.slice(-historySize),

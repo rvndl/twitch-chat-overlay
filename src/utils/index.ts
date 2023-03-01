@@ -1,6 +1,8 @@
 import tinycolor from "tinycolor2";
 import { ChatUserstate } from "tmi.js";
 
+export const vanishCommands = ["!vanish", "!vent", "vanish0"];
+
 const crayonColors = [
   "#FF355E",
   "#FD5B78",
@@ -39,4 +41,9 @@ export const shadeColor = (color: string, amount: number) =>
 
 export const isModOrBroadcaster = (user: ChatUserstate) => {
   return user.mod || user.badges?.broadcaster === "1";
+};
+
+export const isASCIIArt = (message: string) => {
+  const asciiArtRegex = /[\u{2800}-\u{28ff}]/u;
+  return asciiArtRegex.test(message);
 };
