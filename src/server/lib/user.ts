@@ -4,16 +4,12 @@ interface UserDetails {
   id: string;
 }
 
-interface ResponseData {
-  user: UserDetails;
-}
+type ResponseData = UserDetails[];
 
 export async function getUser(username: string) {
-  const {
-    data: { user },
-  } = await axios.get<ResponseData>(
-    `https://api.twitchdatabase.com/channels/${username}`
+  const { data } = await axios.get<ResponseData>(
+    `https://api.ivr.fi/v2/twitch/user?login=${username}`
   );
 
-  return user;
+  return data?.[0];
 }
