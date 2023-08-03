@@ -51,7 +51,7 @@ const Popout = () => {
   }, [messages, animate]);
 
   useEffect(() => {
-    if (!message || !streamer) return;
+    if (!message) return;
     if (!isModOrBroadcaster(message.user)) return;
 
     if (message.message.includes("!refreshemotes")) {

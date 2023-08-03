@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import client from "../../../server/axios";
 import { getUser } from "../../../server/lib/user";
 import { fetch7TvEmotes } from "../../../server/providers/7tv";
 import { fetchBttvEmotes } from "../../../server/providers/bttv";
