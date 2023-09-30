@@ -36,6 +36,12 @@ export const lightenColor = (color?: string) => {
   return color;
 };
 
+export const darkenColor = (color?: string, amount: number = 10) => {
+  color = color || "#FF7F50";
+
+  return tinycolor(color).darken(amount).toHexString();
+};
+
 export const shadeColor = (color: string, amount: number) =>
   tinycolor(color).brighten(amount).toHexString();
 

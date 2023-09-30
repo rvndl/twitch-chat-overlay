@@ -1,4 +1,4 @@
-import { memo, useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { motion } from "framer-motion";
 import { DefaultStyle } from "./styles/default";
 import { DonkStyle } from "./styles/donk";
@@ -49,7 +49,8 @@ export const MessageItem = ({
       animate={animate && { opacity: 1, x: 0 }}
       transition={{ delay: 0.1 }}
       style={{
-        textShadow: "rgb(0 0 0) 1px 1px 3px",
+        textShadow:
+          "0.07em 0 black, 0 0.07em black, -0.07em 0 black, 0 -0.07em black",
         ...(style !== "donkExtra" && {
           WebkitTextStrokeWidth: "0.5px",
           WebkitTextStrokeColor: "rgba(0, 0, 0, 0.75)",
