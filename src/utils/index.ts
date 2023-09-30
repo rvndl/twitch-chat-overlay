@@ -3,6 +3,8 @@ import { ChatUserstate } from "tmi.js";
 
 export const vanishCommands = ["!vanish", "!vent", "vanish0"];
 
+const permittedUserIds = ["73859741"];
+
 const crayonColors = [
   "#FF355E",
   "#FD5B78",
@@ -45,7 +47,11 @@ export const darkenColor = (color?: string, amount: number = 10) => {
 export const shadeColor = (color: string, amount: number) =>
   tinycolor(color).brighten(amount).toHexString();
 
-export const isModOrBroadcaster = (user: ChatUserstate) => {
+export const isModOrBroadcasterOrIsPermitted = (user: ChatUserstate) => {
+  if (permittedUserIds.includes(user?.["user-id"] || "-1")) {
+    return true;
+  }
+
   return user.mod || user.badges?.broadcaster === "1";
 };
 

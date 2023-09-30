@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageItem } from "../../components/message/message";
 import { BadgesContext } from "../../context/badges";
 import { EmotesContext } from "../../context/emotes";
@@ -8,7 +8,8 @@ import { useBadges } from "../../hooks/use-badges";
 import { useEmotes } from "../../hooks/use-emotes";
 import { useTmi } from "../../hooks/use-tmi";
 import { Style } from "../../interfaces/settings";
-import { isModOrBroadcaster } from "../../utils";
+import { isModOrBroadcasterOrIsPermitted } from "../../utils";
+import { SystemMessage } from "../../components/system-message";
 
 function getPopoutSetting<T>(
   settings: string | string[] | undefined,
@@ -23,6 +24,8 @@ const Popout = () => {
   const { emotes, fetch: fetchEmotes } = useEmotes();
   const { badges, fetch: fetchBadges } = useBadges();
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeout = useRef<NodeJS.Timeout>();
+  const [refresherName, setRefresherName] = useState<string | null>(null);
 
   const router = useRouter();
   const { settings } = router.query;
@@ -52,9 +55,15 @@ const Popout = () => {
 
   useEffect(() => {
     if (!message) return;
-    if (!isModOrBroadcaster(message.user)) return;
+    if (!isModOrBroadcasterOrIsPermitted(message.user)) return;
 
     if (message.message.includes("!refreshemotes")) {
+      console.log("asdasdas");
+
+      setRefresherName(message?.user?.["display-name"] || "Unknown");
+      timeout.current = setTimeout(() => {
+        setRefresherName(null);
+      }, 5000);
       fetchEmotes(streamer);
     }
   }, [streamer, message]);
@@ -64,6 +73,12 @@ const Popout = () => {
       <EmotesContext.Provider value={emotes}>
         <div className="overflow-hidden" ref={containerRef}>
           <AnimatePresence>
+            {refresherName && (
+              <SystemMessage
+                message={`${refresherName} has refreshed the emotes`}
+                key="system-message"
+              />
+            )}
             {messages.map((message) => (
               <MessageItem
                 message={message}
