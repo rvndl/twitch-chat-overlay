@@ -45,8 +45,8 @@ export const MessageItem = ({
 
   return (
     <motion.div
-      initial={animate && { opacity: 0, x: -10 }}
-      animate={animate && { opacity: 1, x: 0 }}
+      initial={animate && { opacity: 0, transform: "translateX(-10px)" }}
+      animate={animate && { opacity: 1, transform: "translateX(0px)" }}
       transition={{ delay: 0.1 }}
       style={{
         textShadow:

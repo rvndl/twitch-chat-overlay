@@ -58,8 +58,6 @@ const Popout = () => {
     if (!isModOrBroadcasterOrIsPermitted(message.user)) return;
 
     if (message.message.includes("!refreshemotes")) {
-      console.log("asdasdas");
-
       setRefresherName(message?.user?.["display-name"] || "Unknown");
       timeout.current = setTimeout(() => {
         setRefresherName(null);
@@ -72,7 +70,7 @@ const Popout = () => {
     <BadgesContext.Provider value={badges}>
       <EmotesContext.Provider value={emotes}>
         <div className="overflow-hidden" ref={containerRef}>
-          <AnimatePresence>
+          <AnimatePresence presenceAffectsLayout>
             {refresherName && (
               <SystemMessage
                 message={`${refresherName} has refreshed the emotes`}
