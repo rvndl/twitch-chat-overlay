@@ -15,11 +15,6 @@ export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
 
   const vanish = vanishCommands.some((command) => message.includes(command));
 
-  const icon = useMemo(
-    () => (Math.random() >= 0.3 ? "/nymn-halloween.png" : "/nymn-skeleton.png"),
-    []
-  );
-
   return (
     <div className="flex mb-2">
       <div
@@ -37,7 +32,7 @@ export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
             }
           }
           transition={{ delay: 1, duration: 2 }}
-          src={icon}
+          src="nymn.png"
           className="w-8 h-8 shrink-0"
         />
       </div>
