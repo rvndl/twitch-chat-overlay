@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
-  const userColor = darkenColor(user.color, 15);
-  const shadedColor = darkenColor(userColor, 10);
+  const userColor = lightenColor(user.color);
+  const shadedColor = shadeColor(userColor, 30);
 
   const vanish = vanishCommands.some((command) => message.includes(command));
 
