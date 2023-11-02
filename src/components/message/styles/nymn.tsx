@@ -32,7 +32,7 @@ export const NymNStyle = ({ message: { user, message }, showNames }: Props) => {
             }
           }
           transition={{ delay: 1, duration: 2 }}
-          src="nymn.png"
+          src="/nymn.png"
           className="w-8 h-8 shrink-0"
         />
       </div>
