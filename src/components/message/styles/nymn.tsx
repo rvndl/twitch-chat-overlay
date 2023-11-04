@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Message } from "../../../interfaces/message";
-import { darkenColor, lightenColor, vanishCommands } from "../../../utils";
+import { lightenColor, vanishCommands, shadeColor } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
 import { useMemo } from "react";
 
