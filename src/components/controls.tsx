@@ -12,7 +12,7 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
   const [settings, setSettings] = useState<Settings>({
     animate: true,
     showNames: false,
-    style: "default",
+    style: "donk",
   });
 
   useEffect(() => {
@@ -89,7 +89,8 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
               setSettings((s) => ({ ...s, style: e.target.value as any }));
             }}
           >
-            <option value="default">Default</option>
+            {/* Disabled for now */}
+            {/* <option value="default">Default</option> */}
             <option value="donk">Donk</option>
             <option value="donkExtra">Extra donk</option>
             <option value="nymn">NymN</option>
