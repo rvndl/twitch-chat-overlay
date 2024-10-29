@@ -1,4 +1,4 @@
-import client from "../axios";
+import axios from "axios";
 
 const API_URL = "https://7tv.io/v3";
 
@@ -36,23 +36,23 @@ function emoteMapper(emote: Emote) {
 }
 
 export async function fetch7TvEmotes(channelId: string) {
-  const globalEmotesData = await client.get<GlobalEmoteSet>(
+  const globalEmotesData = await axios.get<GlobalEmoteSet>(
     `${API_URL}/emote-sets/global`
   );
 
   const globalEmoteSet = await (
-    await client.get<EmoteSet>(
+    await axios.get<EmoteSet>(
       `${API_URL}/emote-sets/${globalEmotesData.data.id}`
     )
   ).data.emotes.map(emoteMapper);
 
   try {
-    const accountData = await client.get<Account>(
+    const accountData = await axios.get<Account>(
       `${API_URL}/users/twitch/${channelId}`
     );
 
     const channelEmoteSet = await (
-      await client.get<EmoteSet>(
+      await axios.get<EmoteSet>(
         `${API_URL}/emote-sets/${accountData.data.emote_set.id}`
       )
     ).data.emotes.map(emoteMapper);
