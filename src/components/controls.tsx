@@ -13,6 +13,7 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
     animate: true,
     showNames: false,
     style: "donk",
+    fontSize: "16",
   });
 
   useEffect(() => {
@@ -27,7 +28,9 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
 
     let popoutUrl = `${window.location.href}popout/${channel}/${
       settings.style
-    }/${settings.showNames ? 1 : 0}/${settings.animate ? 1 : 0}`;
+    }/${settings.showNames ? 1 : 0}/${settings.animate ? 1 : 0}/${
+      settings.fontSize
+    }`;
 
     navigator.clipboard.writeText(popoutUrl);
 
@@ -94,6 +97,7 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
             <option value="donk">Donk</option>
             <option value="donkExtra">Extra donk</option>
             <option value="nymn">NymN</option>
+            <option value="nnys">NNYS</option>
           </select>
         </div>
         <div className="flex items-center">

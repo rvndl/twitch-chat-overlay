@@ -8,6 +8,7 @@ import { Message } from "../../interfaces/message";
 import { match } from "ts-pattern";
 import { Style } from "../../interfaces/settings";
 import { NymNStyle } from "./styles/nymn";
+import { NNYSStyle } from "./styles/nnys";
 
 interface Props {
   message: Message;
@@ -47,7 +48,7 @@ export const MessageItem = ({
     <motion.div
       initial={animate && { opacity: 0, transform: "translateX(-10px)" }}
       animate={animate && { opacity: 1, transform: "translateX(0px)" }}
-      transition={{ delay: 0.1 }}
+      transition={{ delay: 0.05 }}
       style={{
         textShadow:
           "0.07em 0 black, 0 0.07em black, -0.07em 0 black, 0 -0.07em black",
@@ -68,6 +69,7 @@ export const MessageItem = ({
         .with("nymn", () => (
           <NymNStyle message={message} showNames={showNames} />
         ))
+        .with("nnys", () => <NNYSStyle message={message} />)
         .otherwise(() => (
           <DefaultStyle message={message} badgesWithUrl={badgesWithUrl} />
         ))}

@@ -10,6 +10,7 @@ interface TmiOptions {
 export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<Message>();
+  const [resub, setResub] = useState<string>();
   const [channel, setChannel] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,6 +38,8 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
       ]);
     });
 
+    client.on("resub", (_, username) => setResub(username));
+
     return () => {
       client.disconnect();
     };
@@ -47,5 +50,5 @@ export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
     setChannel(channel);
   };
 
-  return { message, messages, connect };
+  return { message, messages, connect, resub };
 };

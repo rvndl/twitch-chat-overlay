@@ -6,9 +6,14 @@ import { getRandomCrayonColor } from "../../utils";
 interface Props {
   message: string;
   donkMode?: boolean;
+  isCustom?: boolean;
 }
 
-export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
+export const MessageWithEmotes = ({
+  message,
+  donkMode = false,
+  isCustom = false,
+}: Props) => {
   const emotes = useContext(EmotesContext);
 
   const messageWithEmotes = useMemo(() => {
@@ -22,7 +27,15 @@ export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
       const found = emotes.find((emote) => emote.name === word);
       if (found) {
         replacements.push(
-          `<img src="${found.url}" style="display: flex; margin-left: 5px; margin-right: 5px; max-width: 60px; max-height: 24px;" />`
+          `<img src="${
+            found.url
+          }" style="display: flex; margin-left: 5px; margin-right: 5px; max-width: ${
+            isCustom ? 100 : 60
+          }px; max-height: ${isCustom ? 90 : 24}px; ${
+            isCustom ? "scale: 1.2" : ""
+          }; flex-shrink: 0; ${
+            isCustom ? "width: auto; height: 42px;" : ""
+          }" />`
         );
       } else {
         if (donkMode) {
@@ -43,7 +56,7 @@ export const MessageWithEmotes = ({ message, donkMode = false }: Props) => {
   return (
     <span
       dangerouslySetInnerHTML={{ __html: messageWithEmotes }}
-      className="inline-flex flex-wrap"
+      className="inline-flex flex-wrap items-center"
     ></span>
   );
 };

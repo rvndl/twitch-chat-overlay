@@ -15,6 +15,7 @@ const Home = () => {
     animate: true,
     showNames: false,
     style: "default",
+    fontSize: "16",
   });
   const { messages, connect } = useTmi();
   const { emotes, fetch: fetchEmotes } = useEmotes();
@@ -52,4 +53,3 @@ const Home = () => {
 };
 
 export default Home;
-

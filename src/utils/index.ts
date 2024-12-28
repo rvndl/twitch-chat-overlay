@@ -55,7 +55,30 @@ export const isModOrBroadcasterOrIsPermitted = (user: ChatUserstate) => {
   return user.mod || user.badges?.broadcaster === "1";
 };
 
+const asciiSymbols = [
+  "░",
+  "▒",
+  "▓",
+  "█",
+  "▓",
+  "▒",
+  "░",
+  "█",
+  "▐",
+  "▀",
+  "▄",
+  "▌",
+  "▐",
+  "█",
+  "▀",
+  "▐",
+  "░",
+];
+
 export const isASCIIArt = (message: string) => {
+  const hasAscii = asciiSymbols.some((symbol) => message.includes(symbol));
+  if (hasAscii) return true;
+
   const asciiArtRegex = /[\u{2800}-\u{28ff}]/u;
   return asciiArtRegex.test(message);
 };
