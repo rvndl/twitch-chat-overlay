@@ -1,3 +1,4 @@
+import { ChatUserstate } from "tmi.js";
 import { Message } from "../../../interfaces/message";
 import { lightenColor, shadeColor } from "../../../utils";
 import { MessageWithEmotes } from "../message-emotes";
@@ -6,29 +7,41 @@ interface Props {
   message: Message;
 }
 
+const styles = {
+  default: ["#cac9c9", "/nnys-silver.png"],
+  sub: ["#d2b21f", "/nnys.png"],
+  vip: ["#b370f0", "/nnys-vip.png"],
+  mod: ["#34a1f5", "/nnys-mod.png"],
+};
+
+const getStyle = (user: ChatUserstate) => {
+  if (user.mod) {
+    return styles.mod;
+  }
+  if (user.badges?.vip === "1") {
+    return styles.vip;
+  }
+  if (user.subscriber) {
+    return styles.sub;
+  }
+
+  return styles.default;
+};
+
 export const NNYSStyle = ({ message: { user, message } }: Props) => {
+  const styles = getStyle(user);
+
   return (
     <div className="flex mb-2 text-4xl">
       <p
         className="flex items-center ml-1 font-bold shrink-0"
         style={{
-          color: "#d2b21f",
+          color: styles[0],
         }}
       >
-        <div
-          className="w-16 h-16 mr-1 rounded-2xl"
-          style={{
-            // background:
-            // "url(https://cdn.7tv.app/paint/01JEY00EDNVW20AWX2NPG4HTNF/layer/01JEY41GFMEX7R8YCVMDA8SSY6/1x.webp)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-        >
-          <div
-            className="w-16 h-16 rounded-2xl"
-            style={{ backdropFilter: "blur(16px)" }}
-          >
-            <img src="/nnys.png" className="w-full h-full" />
+        <div className="w-16 h-16 mr-1 rounded-2xl">
+          <div className="w-16 h-16 rounded-2xl">
+            <img src={styles[1]} className="w-full h-full" />
           </div>
         </div>
         {user["display-name"]}:

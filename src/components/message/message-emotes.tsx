@@ -46,6 +46,13 @@ export const MessageWithEmotes = ({
           return;
         }
 
+        if (word.toLowerCase() === "nymn") {
+          replacements.push(
+            `<span style="color: #ffd500; margin-left: 8px; margin-right: 8px;">${word}</span>`
+          );
+          return;
+        }
+
         replacements.push(word);
       }
     });
