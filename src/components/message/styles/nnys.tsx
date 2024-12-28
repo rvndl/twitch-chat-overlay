@@ -28,7 +28,7 @@ export const NNYSStyle = ({ message: { user, message } }: Props) => {
             className="w-16 h-16 rounded-2xl"
             style={{ backdropFilter: "blur(16px)" }}
           >
-            <img src="/nnys.avif" className="w-full h-full" />
+            <img src="/nnys.png" className="w-full h-full" />
           </div>
         </div>
         {user["display-name"]}:
