@@ -44,8 +44,6 @@ const Popout = () => {
 
   const fireworksRef = useRef<FireworksHandlers>(null);
 
-  console.log(settings, fontSize);
-
   useEffect(() => {
     if (!streamer) return;
 
@@ -58,9 +56,9 @@ const Popout = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.lastElementChild?.scrollIntoView({
-        behavior: animate === "1" ? "smooth" : "auto",
-      });
+      // containerRef.current.lastElementChild?.scrollIntoView({
+      //   behavior: animate === "1" ? "smooth" : "auto",
+      // });
     }
   }, [messages, animate]);
 
@@ -84,7 +82,6 @@ const Popout = () => {
     if (!resub) return;
 
     fireworksRef.current?.launch();
-    console.log("resub");
   }, [resub]);
 
   console.log(settings);
