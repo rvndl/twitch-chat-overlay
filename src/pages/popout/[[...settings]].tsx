@@ -40,7 +40,7 @@ const Popout = () => {
 
   const margin = getPopoutSetting<string>(settings, 5, "6");
 
-  const fontSize = getPopoutSetting<string>(settings, 7, "6");
+  const fontSize = getPopoutSetting<string>(settings, 7, "16");
 
   const fireworksRef = useRef<FireworksHandlers>(null);
 
