@@ -9,7 +9,6 @@ import { useEmotes } from "../../hooks/use-emotes";
 import { useTmi } from "../../hooks/use-tmi";
 import { Style } from "../../interfaces/settings";
 import { isModOrBroadcasterOrIsPermitted } from "../../utils";
-import { SystemMessage } from "../../components/system-message";
 import Fireworks, { FireworksHandlers } from "@fireworks-js/react";
 
 function getPopoutSetting<T>(
@@ -30,10 +29,22 @@ const Popout = () => {
   const { settings } = router.query;
 
   const streamer = getPopoutSetting<string>(settings, 0, "");
+
   const style = getPopoutSetting<Style>(settings, 1, "default");
+
   const showNames = getPopoutSetting<string>(settings, 2, "0");
+
   const animate = getPopoutSetting<string>(settings, 3, "0");
+
+  const showIcon = getPopoutSetting<string>(settings, 4, "0");
+
+  const margin = getPopoutSetting<string>(settings, 5, "6");
+
+  const fontSize = getPopoutSetting<string>(settings, 7, "6");
+
   const fireworksRef = useRef<FireworksHandlers>(null);
+
+  console.log(settings, fontSize);
 
   useEffect(() => {
     if (!streamer) return;
@@ -76,6 +87,8 @@ const Popout = () => {
     console.log("resub");
   }, [resub]);
 
+  console.log(settings);
+
   return (
     <>
       <BadgesContext.Provider value={badges}>
@@ -87,6 +100,9 @@ const Popout = () => {
                   message={message}
                   animate={animate === "1"}
                   showNames={showNames === "1"}
+                  showIcon={showIcon === "1"}
+                  fontSize={fontSize}
+                  margin={parseInt(margin)}
                   style={style}
                   key={message.user.id + message.message}
                 />

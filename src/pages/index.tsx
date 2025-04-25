@@ -16,6 +16,8 @@ const Home = () => {
     showNames: false,
     style: "default",
     fontSize: "16",
+    margin: 6,
+    showIcon: true,
   });
   const { messages, connect } = useTmi();
   const { emotes, fetch: fetchEmotes } = useEmotes();

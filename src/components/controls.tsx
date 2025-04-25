@@ -14,6 +14,8 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
     showNames: false,
     style: "donk",
     fontSize: "16",
+    showIcon: true,
+    margin: 6,
   });
 
   useEffect(() => {
@@ -29,8 +31,8 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
     let popoutUrl = `${window.location.href}popout/${channel}/${
       settings.style
     }/${settings.showNames ? 1 : 0}/${settings.animate ? 1 : 0}/${
-      settings.fontSize
-    }`;
+      settings.showNames
+    }/${settings.showIcon ? 1 : 0}/${settings.margin}/${settings.fontSize}`;
 
     navigator.clipboard.writeText(popoutUrl);
 
@@ -58,6 +60,7 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
             placeholder="Enter channel name"
             onChange={(e) => setChannel(e.target.value)}
           />
+
           <div className="grid grid-cols-2 gap-2">
             <button
               type="submit"
@@ -131,9 +134,62 @@ export const Controls = ({ onConnect, onSettingsChange }: Props) => {
             htmlFor="show-names-checkbox"
             className="ml-2 text-sm font-medium text-gray-300"
           >
-            Show usernames in custom styles
+            Show username
           </label>
         </div>
+        <div className="flex items-center">
+          <input
+            id="show-icon-checkbox"
+            type="checkbox"
+            className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2"
+            checked={settings.showIcon}
+            onChange={() => {
+              setSettings((s) => ({ ...s, showIcon: !s.showIcon }));
+            }}
+          />
+          <label
+            htmlFor="show-icon-checkbox"
+            className="ml-2 text-sm font-medium text-gray-300"
+          >
+            Show icon
+          </label>
+        </div>
+        <label
+          htmlFor="margin-input"
+          className="block mt-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Margin
+        </label>
+        <input
+          type="number"
+          id="margin-input"
+          className=" border outline-none text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Margin"
+          value={settings.margin}
+          min={0}
+          max={100}
+          onChange={(e) =>
+            setSettings((s) => ({ ...s, margin: parseInt(e.target.value) }))
+          }
+        />
+        <label
+          htmlFor="font-size-input"
+          className="block mt-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Font size
+        </label>
+        <input
+          type="number"
+          id="font-size-input"
+          className=" border outline-none text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Margin"
+          value={settings.fontSize}
+          min={8}
+          max={100}
+          onChange={(e) =>
+            setSettings((s) => ({ ...s, fontSize: e.target.value }))
+          }
+        />
       </div>
     </div>
   );

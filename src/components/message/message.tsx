@@ -15,6 +15,9 @@ interface Props {
   animate?: boolean;
   style?: Style;
   showNames?: boolean;
+  showIcon?: boolean;
+  margin?: number;
+  fontSize?: string;
 }
 
 export const MessageItem = ({
@@ -22,6 +25,9 @@ export const MessageItem = ({
   animate = true,
   style = "default",
   showNames = true,
+  showIcon = true,
+  fontSize,
+  margin,
 }: Props) => {
   const badges = useContext(BadgesContext);
 
@@ -44,6 +50,8 @@ export const MessageItem = ({
     });
   }, [badges, message]);
 
+  console.log(fontSize);
+
   return (
     <motion.div
       initial={animate && { opacity: 0, transform: "translateX(-10px)" }}
@@ -52,6 +60,7 @@ export const MessageItem = ({
       style={{
         textShadow:
           "0.07em 0 black, 0 0.07em black, -0.07em 0 black, 0 -0.07em black",
+        fontSize: `${fontSize}px`,
         ...(style !== "donkExtra" && {
           WebkitTextStrokeWidth: "0.5px",
           WebkitTextStrokeColor: "rgba(0, 0, 0, 0.75)",
@@ -67,7 +76,12 @@ export const MessageItem = ({
           <DonkExtraStyle message={message} showNames={showNames} />
         ))
         .with("nymn", () => (
-          <NymNStyle message={message} showNames={showNames} />
+          <NymNStyle
+            message={message}
+            showNames={showNames}
+            showIcon={showIcon}
+            margin={margin}
+          />
         ))
         .with("nnys", () => <NNYSStyle message={message} />)
         .otherwise(() => (
