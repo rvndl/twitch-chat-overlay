@@ -7,9 +7,7 @@ interface TmiOptions {
   historySize: number;
 }
 
-export const useTmi = (
-  { historySize }: TmiOptions = { historySize: 1_000 }
-) => {
+export const useTmi = ({ historySize }: TmiOptions = { historySize: 50 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<Message>();
   const [resub, setResub] = useState<string>();
