@@ -56,9 +56,9 @@ const Popout = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      // containerRef.current.lastElementChild?.scrollIntoView({
-      //   behavior: animate === "1" ? "smooth" : "auto",
-      // });
+      containerRef.current.lastElementChild?.scrollIntoView({
+        behavior: "auto",
+      });
     }
   }, [messages, animate]);
 
