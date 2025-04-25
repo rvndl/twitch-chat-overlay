@@ -95,7 +95,7 @@ const Popout = () => {
               {messages.map((message) => (
                 <MessageItem
                   message={message}
-                  animate={animate === "1"}
+                  animate={false}
                   showNames={showNames === "1"}
                   showIcon={showIcon === "1"}
                   fontSize={fontSize}
